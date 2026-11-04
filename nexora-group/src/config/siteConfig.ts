@@ -13,9 +13,16 @@ export interface PortfolioItem {
   title: string;
   category: string;
   description: string;
-  image?: string; // Optional custom local image override
+  executiveHighlight: string;
+  image?: string;
   techStack: string[];
   link: string;
+  primaryCtaText: string;
+  secondaryCta?: {
+    label: string;
+    href: string;
+    badge?: string;
+  };
   isExternal: boolean;
   status: "Live" | "Beta" | "In Development";
 }
@@ -34,6 +41,14 @@ export interface ClockLocation {
   isPrimary?: boolean;
 }
 
+export interface RoadmapMilestone {
+  quarter: string;
+  title: string;
+  division: string;
+  description: string;
+  status: "Completed" | "In Progress" | "Open for Investment";
+}
+
 export const SITE_CONFIG = {
   name: "NEXORA GROUP",
   tagline: "Building Ideas. Developing Technology. Creating Opportunities.",
@@ -42,17 +57,114 @@ export const SITE_CONFIG = {
   url: "https://nexoragroup.com",
   contact: {
     email: "magkk.muizomoyele@gmail.com",
-    whatsappNumber: "2349073754047", // Formatted for wa.me links (09073754047 -> 2349073754047)
+    whatsappNumber: "2349073754047",
     whatsappDisplay: "+234 907 375 4047",
     location: "Ibadan, Nigeria",
     socials: {
       linkedin: "https://linkedin.com",
-      twitter: "https://x.com/idanmagkk",
+      twitter: "https://x.com",
       github: "https://github.com/magkkteck08",
-      instagram: "https://instagram.com/idanmagkk",
+      instagram: "https://instagram.com",
     },
   },
 };
+
+export const OPERATIONAL_METRICS = [
+  {
+    value: "6+",
+    label: "Proprietary Platforms",
+    detail: "Live SaaS, media, e-commerce & gaming systems",
+  },
+  {
+    value: "4",
+    label: "Core Divisions",
+    detail: "Gaming, Fintech SaaS, SEO Growth & Strategy",
+  },
+  {
+    value: "99.9%",
+    label: "Cloud Architecture",
+    detail: "Modern serverless & edge deployment standards",
+  },
+  {
+    value: "Global",
+    label: "Operating Corridors",
+    detail: "Synchronized across Nigeria, UK, USA & UAE",
+  },
+];
+
+export const TECH_INFRASTRUCTURE = [
+  "Next.js (App Router)",
+  "TypeScript",
+  "React",
+  "Node.js",
+  "Supabase",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "Framer Motion",
+  "3D Gameplay Systems",
+  "Technical SEO Architecture",
+  "Vercel Edge Network",
+  "Git / CI-CD",
+];
+
+export const FLAGSHIP_GAME_PROJECT = {
+  title: "Become A Legend",
+  subtitle: "Third-Person Football Career & Tactical Action Game",
+  statusBadge: "In Active Development • Seeking Seed Investors & Partners",
+  overview:
+    "An immersive third-person football experience that puts the user directly in the boots of an aspiring footballer. Unlike traditional top-down team simulators, Become A Legend focuses on individual pitch awareness, third-person camera control, tactical positioning, grassroots-to-pro career progression, and high-stakes match moments.",
+  keyPillars: [
+    {
+      title: "3rd-Person On-Pitch Control",
+      detail:
+        "Close-camera third-person perspective engineered for spatial awareness, defensive positioning, sprinting lanes, and precision ball striking.",
+    },
+    {
+      title: "Grassroots to Global Stadiums",
+      detail:
+        "Authentic career mode taking players from local academy pitches and street tournaments to professional leagues and international arenas.",
+    },
+    {
+      title: "Tactical & Decision Engine",
+      detail:
+        "Dynamic match rating system rewarding real football IQ—off-the-ball movement, defensive discipline, link-up play, and clutch execution.",
+    },
+    {
+      title: "Scalable Monetization & Esports Ready",
+      detail:
+        "Built for cross-platform expansion with player customization, seasonal career passes, and competitive online pro-clubs integration.",
+    },
+  ],
+  investmentGoals:
+    "Currently open to angel investors, gaming venture funds, and 3D technical collaborators to accelerate core gameplay prototyping, motion asset pipelines, and playable alpha release.",
+};
+
+export const ROADMAP_MILESTONES: RoadmapMilestone[] = [
+  {
+    quarter: "Phase 1 • Live Ecosystem",
+    title: "SaaS & Media Suite Deployment",
+    division: "Fintech, E-Commerce & Media",
+    description:
+      "Production rollout of Receipta, CatalogPal, Africommerce, Velo Pulse, and Creator Unite across web and mobile channels.",
+    status: "Completed",
+  },
+  {
+    quarter: "Phase 2 • Current Focus",
+    title: "Velo Pulse Writer Network & Merchant Scaling",
+    division: "Digital Growth & Publishing",
+    description:
+      "Onboarding new sports, tech, and culture writers onto Velo Pulse while expanding merchant adoption on Receipta and CatalogPal.",
+    status: "In Progress",
+  },
+  {
+    quarter: "Phase 3 • Flagship Gaming R&D",
+    title: "Become A Legend — Core Gameplay & Seed Round",
+    division: "Gaming & Interactive Experiences",
+    description:
+      "Developing third-person football mechanics, player physics, and pitch AI while securing strategic capital and studio partners.",
+    status: "Open for Investment",
+  },
+];
 
 export const WORLD_CLOCK_LOCATIONS: ClockLocation[] = [
   {
@@ -83,38 +195,38 @@ export const SERVICE_DIVISIONS: ServiceDivision[] = [
     id: "gaming",
     title: "Gaming & Interactive Experiences",
     description:
-      "We explore and develop interactive digital experiences, gaming concepts and gameplay systems.",
+      "We explore and develop interactive digital experiences, gaming concepts and gameplay systems—headlined by our upcoming third-person football title, Become A Legend.",
     iconName: "Gamepad2",
     services: [
-      "Game development",
-      "Gameplay mechanics",
-      "Game prototyping",
-      "Interactive experiences",
+      "3rd-person game development",
+      "Football & sports gameplay mechanics",
+      "Game prototyping & systems design",
+      "Interactive digital experiences",
     ],
   },
   {
     id: "fintech",
     title: "Fintech & Digital Products",
     description:
-      "We design and develop digital products that simplify financial activities and business operations.",
+      "We design and develop digital products that simplify financial activities, merchant invoicing, and daily business operations.",
     iconName: "Landmark",
     services: [
-      "Fintech applications",
-      "SaaS development",
-      "Digital payment solutions",
-      "Business management platforms",
+      "Fintech & invoicing applications",
+      "SaaS product development",
+      "Digital payment & receipt solutions",
+      "Business & catalogue platforms",
     ],
   },
   {
     id: "seo",
     title: "SEO & Digital Growth",
     description:
-      "We help businesses improve their online visibility, website performance and search engine presence.",
+      "We help businesses improve their online visibility, website performance and search engine presence to drive sustainable organic traffic.",
     iconName: "TrendingUp",
     services: [
-      "Technical SEO",
-      "On-page SEO",
-      "Website optimisation",
+      "Technical SEO architecture",
+      "On-page SEO & content systems",
+      "Website speed & conversion optimisation",
       "Search visibility strategy",
     ],
   },
@@ -122,12 +234,12 @@ export const SERVICE_DIVISIONS: ServiceDivision[] = [
     id: "consultation",
     title: "Consultation & Strategy",
     description:
-      "We help individuals and businesses plan, evaluate and execute digital and technology-driven ideas.",
+      "We help individuals, founders, and businesses plan, evaluate and execute digital and technology-driven ideas across borders.",
     iconName: "Compass",
     services: [
       "Digital business consultation",
-      "Product strategy",
-      "Technology advisory",
+      "Product & MVP strategy",
+      "CTO & technology advisory",
       "Digital transformation planning",
     ],
   },
@@ -137,71 +249,97 @@ export const PORTFOLIO_PROJECTS: PortfolioItem[] = [
   {
     id: "receipta",
     title: "Receipta",
-    category: "Digital Receipts & Fintech SaaS",
+    category: "Enterprise Digital Receipts & Business Invoicing SaaS",
     description:
-      "A streamlined financial documentation platform enabling businesses to generate, track, and manage verifiable digital receipts and invoicing workflows.",
+      "A professional-grade financial documentation platform built for modern businesses, merchants, and service providers. Receipta replaces paper clutter with instant, branded, and verifiable digital receipts, automated client billing records, and audit-ready transaction histories.",
+    executiveHighlight:
+      "Solves merchant record-keeping friction and elevates brand trust with instant digital proof-of-payment.",
+    image: "/projects/receipta.jpg",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js"],
-    image: "/projects/receipta.jpg",
     link: "https://receipta.cv",
-    isExternal: true,
-    status: "Live",
-  },
-  {
-    id: "africommerce",
-    title: "Africommerce",
-    category: "E-Commerce & Storefront Platform",
-    description:
-      "Digital commerce infrastructure designed to help merchants launch modern online storefronts, manage inventory, and process customer orders.",
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"],
-    link: "https://africmm.cv",
-    image: "/projects/receipta.jpg",
+    primaryCtaText: "Launch Receipta",
     isExternal: true,
     status: "Live",
   },
   {
     id: "catalogpal",
     title: "CatalogPal",
-    category: "Digital Product Catalogue Platform",
+    category: "Smart Digital Product Catalogue & Merchant Showcase",
     description:
-      "An intuitive product showcase solution allowing businesses to organise, publish, and share interactive digital catalogues across mobile and web channels.",
-    techStack: ["React", "TypeScript", "Tailwind CSS"],
-    image: "/projects/receipta.jpg",
-    link: "https://catalogpal.cv",
+      "An intuitive commerce enablement tool that turns static product lists into interactive, shareable digital catalogues. Built for vendors and growing brands to organize inventory, update pricing in real time, and convert social or mobile traffic into direct customer orders.",
+    executiveHighlight:
+      "Empowers businesses to showcase full product lines via a single link without complex store setup.",
+    image: "/projects/catalogpal.jpg",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Cloud Storage"],
+    link: "https://catalo-gpal.vercel.app",
+    primaryCtaText: "Explore CatalogPal",
     isExternal: true,
     status: "Live",
   },
   {
     id: "velo-pulse",
     title: "Velo Pulse",
-    category: "Digital Media & Publishing Platform",
+    category: "Digital News, Sports & Media Publishing Platform",
     description:
-      "Modern content publishing architecture engineered for fast editorial workflows, search visibility, and high-engagement digital readership.",
-    techStack: ["Next.js", "MDX", "Technical SEO", "Tailwind CSS"],
-    image: "/projects/receipta.jpg",
+      "A high-speed digital newsroom and publishing platform delivering breaking stories, football analysis, tech updates, and cultural commentary. Engineered with instant search and mobile-first readability—and currently expanding its editorial desk with new writers and journalists.",
+    executiveHighlight:
+      "We are actively recruiting passionate writers, sports analysts, and contributors to publish on Velo Pulse.",
+    image: "/projects/velopulse.jpg",
+    techStack: ["Next.js", "Editorial CMS", "Technical SEO", "Tailwind CSS"],
     link: "https://velo-pulse.cv",
+    primaryCtaText: "Read News on Velo Pulse",
+    secondaryCta: {
+      label: "Apply as a Writer",
+      href: `https://wa.me/2349073754047?text=${encodeURIComponent(
+        "Hello Nexora Group, I would like to apply as a writer/contributor for Velo Pulse (velo-pulse.cv)."
+      )}`,
+      badge: "Hiring Writers",
+    },
+    isExternal: true,
+    status: "Live",
+  },
+  {
+    id: "africommerce",
+    title: "Africommerce",
+    category: "E-Commerce & Multi-Vendor Storefront Builder",
+    description:
+      "Comprehensive digital commerce infrastructure built for African and international merchants to launch custom online storefronts, manage inventory, and scale digital retail operations.",
+    executiveHighlight:
+      "Bridges the gap between informal social selling and structured, scalable online storefronts.",
+    image: "/projects/africommerce.jpg",
+    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"],
+    link: "https://africmm.cv",
+    primaryCtaText: "Visit Africommerce",
     isExternal: true,
     status: "Live",
   },
   {
     id: "creator-unite",
     title: "Creator Unite",
-    category: "Creator Community & Event Registration",
+    category: "Creator Community & Event Registration Platform",
     description:
-      "Centralised hub for digital creators and organisers to coordinate community gatherings, manage attendee registrations, and foster collaboration.",
+      "Centralised ecosystem for digital creators, hosts, and community builders to coordinate flagship events, manage attendee registrations, and foster cross-industry partnerships.",
+    executiveHighlight:
+      "Streamlines event ticketing, community onboarding, and creator networking in one hub.",
+    image: "/projects/creatorunite.jpg",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    image: "/projects/receipta.jpg",
     link: "https://x-creator-unite.com",
+    primaryCtaText: "Visit Creator Unite",
     isExternal: true,
     status: "Live",
   },
   {
     id: "profitpal",
     title: "ProfitPal",
-    category: "Business Management & Profit Tracking",
+    category: "SME Business Management & Margin Tracking",
     description:
-      "Operational clarity tool built for small and medium enterprises to monitor margins, record daily expenses, and evaluate net profitability.",
-    techStack: ["Next.js", "TypeScript", "Charting UI"],
+      "Operational clarity platform designed for business owners to track unit economics, monitor daily expenses, and calculate real-time net profitability without complex accounting software.",
+    executiveHighlight:
+      "Gives founders instant visibility into cash flow, cost of goods, and true net margins.",
+    image: "/projects/profitpal.jpg",
+    techStack: ["Next.js", "TypeScript", "Analytics UI"],
     link: "#contact",
+    primaryCtaText: "Request Early Access",
     isExternal: false,
     status: "Beta",
   },
