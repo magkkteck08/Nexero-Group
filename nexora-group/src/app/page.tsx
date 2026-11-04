@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import WorldClock from "../components/WorldClock";
 import TrustAndMetrics from "../components/TrustAndMetrics";
 import Services from "../components/Services";
+import WorldClock from "../components/WorldClock";
 import Portfolio from "../components/Portfolio";
 import FlagshipLab from "../components/FlagshipLab";
 import About from "../components/About";
@@ -27,9 +27,9 @@ export default function HomePage() {
         <Navbar />
         <main className="flex-grow">
           <Hero />
-          <WorldClock />
           <TrustAndMetrics />
           <Services />
+          <WorldClock />
           <Portfolio />
           <FlagshipLab />
           <About />
