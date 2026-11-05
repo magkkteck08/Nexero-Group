@@ -8,23 +8,29 @@ export interface ServiceDivision {
   services: string[];
 }
 
+export type PortfolioCategoryGroup =
+  | "LIVE PRODUCTS"
+  | "IN DEVELOPMENT"
+  | "RESEARCH & DEVELOPMENT";
+
 export interface PortfolioItem {
   id: string;
   title: string;
+  group: PortfolioCategoryGroup;
   category: string;
-  description: string;
-  executiveHighlight: string;
+  shortDescription: string;
+  fullOverview: string;
+  keyCapabilities: string[];
+  logo?: string;
   image?: string;
   techStack: string[];
-  link: string;
-  primaryCtaText: string;
+  visitUrl?: string;
+  learnMoreUrl?: string; // If internal page like /projects/become-a-legend
   secondaryCta?: {
     label: string;
     href: string;
-    badge?: string;
   };
-  isExternal: boolean;
-  status: "Live" | "Beta" | "In Development";
+  status: "Live" | "In Development" | "R&D";
 }
 
 export interface VentureItem {
@@ -41,135 +47,95 @@ export interface ClockLocation {
   isPrimary?: boolean;
 }
 
-export interface RoadmapMilestone {
-  quarter: string;
-  title: string;
-  division: string;
-  description: string;
-  status: "Completed" | "In Progress" | "Open for Investment";
-}
-
 export const SITE_CONFIG = {
   name: "NEXORA GROUP",
   tagline: "Building Ideas. Developing Technology. Creating Opportunities.",
+  corporatePositioning:
+    "Building Businesses. Developing Technology. Creating Opportunities.",
   description:
-    "We develop digital products, create interactive experiences, provide technology solutions and help businesses grow through strategy and digital innovation.",
-  url: "https://nexoragroup.com",
+    "Nexora Group builds, develops, operates, and invests in technology platforms, interactive digital experiences, and commercial ventures designed to solve real-world problems.",
+  url: "https://nexora-group.cv",
+  emails: {
+    general: "info@nexora-group.cv",
+    partnerships: "partnerships@nexora-group.cv",
+    support: "support@nexora-group.cv",
+    founder: "founder@nexora-group.cv",
+  },
   contact: {
-    email: "magkk.muizomoyele@gmail.com",
+    email: "info@nexora-group.cv",
     whatsappNumber: "2349073754047",
     whatsappDisplay: "+234 907 375 4047",
-    location: "Ibadan, Nigeria",
+    location: "Ibadan, Oyo State, Nigeria",
     socials: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://x.com",
+      linkedin: "https://linkedin.com/in/muiz-omoyele",
+      twitter: "https://x.com/idanmagkk",
       github: "https://github.com/magkkteck08",
-      instagram: "https://instagram.com",
+      instagram: "https://instagram.com/idanmagkk",
     },
+  },
+  founder: {
+    name: "Muiz Ayolola Omoyele",
+    role: "Founder & Group Executive",
+    image: "/founder.jpg",
+    linkedin: "https://linkedin.com/in/muiz-omoyele",
+    email: "founder@nexora-group.cv",
+    visionQuote:
+      "Founded on the belief that practical ideas, technology and strategic execution can create meaningful opportunities, Nexora Group is driven by a vision to build sustainable businesses and digital products that solve real-world problems.",
+    summary:
+      "Oversees group-wide corporate strategy, capital allocation, product architecture, and commercial operations across Nexora Group's technology, media, gaming, and physical distribution divisions.",
+    responsibilities: [
+      {
+        division: "Corporate Strategy & Governance",
+        detail:
+          "Directs multi-sector venture development, strategic partnerships, and long-term commercial sustainability.",
+      },
+      {
+        division: "Fintech & Digital Product Systems",
+        detail:
+          "Leads product architecture and lifecycle execution for Receipta, CatalogPal, Africommerce, and ProfitPal.",
+      },
+      {
+        division: "Interactive Gaming & R&D",
+        detail:
+          "Spearheads gameplay systems design, technical direction, and studio partnerships for Become A Legend.",
+      },
+      {
+        division: "Commercial & Supply Chain Ventures",
+        detail:
+          "Coordinates physical merchandise procurement, foodstuff distribution, and direct-to-market operations.",
+      },
+    ],
   },
 };
 
+// PRIORITY 1: Corrected, Verified Credibility Claims
 export const OPERATIONAL_METRICS = [
   {
-    value: "6+",
-    label: "Proprietary Platforms",
-    detail: "Live SaaS, media, e-commerce & gaming systems",
+    value: "5+",
+    label: "Digital Products & Platforms",
+    detail: "Live software platforms across invoicing, commerce, and media",
   },
   {
     value: "4",
-    label: "Core Divisions",
-    detail: "Gaming, Fintech SaaS, SEO Growth & Strategy",
+    label: "Core Business Divisions",
+    detail: "Gaming, Fintech SaaS, Digital Growth, and Commercial Strategy",
   },
   {
-    value: "99.9%",
-    label: "Cloud Architecture",
-    detail: "Modern serverless & edge deployment standards",
+    value: "Modern",
+    label: "Cloud Infrastructure",
+    detail: "Engineered with scalable web, database, and edge technologies",
   },
   {
     value: "Global",
-    label: "Operating Corridors",
-    detail: "Synchronized across Nigeria, UK, USA & UAE",
-  },
-];
-
-export const TECH_INFRASTRUCTURE = [
-  "Next.js (App Router)",
-  "TypeScript",
-  "React",
-  "Node.js",
-  "Supabase",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "Framer Motion",
-  "3D Gameplay Systems",
-  "Technical SEO Architecture",
-  "Vercel Edge Network",
-  "Git / CI-CD",
-];
-
-export const FLAGSHIP_GAME_PROJECT = {
-  title: "Become A Legend",
-  subtitle: "Third-Person Football Career & Tactical Action Game",
-  statusBadge: "In Active Development • Seeking Seed Investors & Partners",
-  overview:
-    "An immersive third-person football experience that puts the user directly in the boots of an aspiring footballer. Unlike traditional top-down team simulators, Become A Legend focuses on individual pitch awareness, third-person camera control, tactical positioning, grassroots-to-pro career progression, and high-stakes match moments.",
-  keyPillars: [
-    {
-      title: "3rd-Person On-Pitch Control",
-      detail:
-        "Close-camera third-person perspective engineered for spatial awareness, defensive positioning, sprinting lanes, and precision ball striking.",
-    },
-    {
-      title: "Grassroots to Global Stadiums",
-      detail:
-        "Authentic career mode taking players from local academy pitches and street tournaments to professional leagues and international arenas.",
-    },
-    {
-      title: "Tactical & Decision Engine",
-      detail:
-        "Dynamic match rating system rewarding real football IQ—off-the-ball movement, defensive discipline, link-up play, and clutch execution.",
-    },
-    {
-      title: "Scalable Monetization & Esports Ready",
-      detail:
-        "Built for cross-platform expansion with player customization, seasonal career passes, and competitive online pro-clubs integration.",
-    },
-  ],
-  investmentGoals:
-    "Currently open to angel investors, gaming venture funds, and 3D technical collaborators to accelerate core gameplay prototyping, motion asset pipelines, and playable alpha release.",
-};
-
-export const ROADMAP_MILESTONES: RoadmapMilestone[] = [
-  {
-    quarter: "Phase 1 • Live Ecosystem",
-    title: "SaaS & Media Suite Deployment",
-    division: "Fintech, E-Commerce & Media",
-    description:
-      "Production rollout of Receipta, CatalogPal, Africommerce, Velo Pulse, and Creator Unite across web and mobile channels.",
-    status: "Completed",
-  },
-  {
-    quarter: "Phase 2 • Current Focus",
-    title: "Velo Pulse Writer Network & Merchant Scaling",
-    division: "Digital Growth & Publishing",
-    description:
-      "Onboarding new sports, tech, and culture writers onto Velo Pulse while expanding merchant adoption on Receipta and CatalogPal.",
-    status: "In Progress",
-  },
-  {
-    quarter: "Phase 3 • Flagship Gaming R&D",
-    title: "Become A Legend — Core Gameplay & Seed Round",
-    division: "Gaming & Interactive Experiences",
-    description:
-      "Developing third-person football mechanics, player physics, and pitch AI while securing strategic capital and studio partners.",
-    status: "Open for Investment",
+    label: "International Reach",
+    detail: "Serving clients, partners, and digital users across borders",
   },
 ];
 
 export const WORLD_CLOCK_LOCATIONS: ClockLocation[] = [
   {
     city: "Ibadan",
-    country: "Nigeria",
+    country: "Nigeria (Primary Base)",
     timeZone: "Africa/Lagos",
     isPrimary: true,
   },
@@ -180,168 +146,227 @@ export const WORLD_CLOCK_LOCATIONS: ClockLocation[] = [
   },
   {
     city: "New York",
-    country: "USA",
+    country: "United States",
     timeZone: "America/New_York",
   },
   {
     city: "Dubai",
-    country: "UAE",
+    country: "United Arab Emirates",
     timeZone: "Asia/Dubai",
   },
 ];
 
 export const SERVICE_DIVISIONS: ServiceDivision[] = [
   {
-    id: "gaming",
-    title: "Gaming & Interactive Experiences",
-    description:
-      "We explore and develop interactive digital experiences, gaming concepts and gameplay systems—headlined by our upcoming third-person football title, Become A Legend.",
-    iconName: "Gamepad2",
-    services: [
-      "3rd-person game development",
-      "Football & sports gameplay mechanics",
-      "Game prototyping & systems design",
-      "Interactive digital experiences",
-    ],
-  },
-  {
     id: "fintech",
     title: "Fintech & Digital Products",
     description:
-      "We design and develop digital products that simplify financial activities, merchant invoicing, and daily business operations.",
+      "We build and operate proprietary SaaS platforms that simplify invoicing, merchant inventory, and daily business management.",
     iconName: "Landmark",
     services: [
-      "Fintech & invoicing applications",
-      "SaaS product development",
-      "Digital payment & receipt solutions",
-      "Business & catalogue platforms",
+      "Digital receipt & invoicing systems",
+      "Interactive product catalogue tools",
+      "Multi-vendor e-commerce platforms",
+      "SME margin & expense tracking",
+    ],
+  },
+  {
+    id: "gaming",
+    title: "Gaming & Interactive Experiences",
+    description:
+      "We research, prototype, and develop original interactive entertainment—headlined by our third-person football title, Become A Legend.",
+    iconName: "Gamepad2",
+    services: [
+      "3rd-person sports game development",
+      "Gameplay mechanics & tactical AI",
+      "Interactive simulation prototyping",
+      "Cross-platform game architecture",
     ],
   },
   {
     id: "seo",
     title: "SEO & Digital Growth",
     description:
-      "We help businesses improve their online visibility, website performance and search engine presence to drive sustainable organic traffic.",
+      "We engineer search visibility systems, high-speed web architectures, and editorial media platforms that drive sustainable organic growth.",
     iconName: "TrendingUp",
     services: [
       "Technical SEO architecture",
-      "On-page SEO & content systems",
-      "Website speed & conversion optimisation",
-      "Search visibility strategy",
+      "Digital publishing & media systems",
+      "Performance & conversion engineering",
+      "Organic acquisition strategy",
     ],
   },
   {
     id: "consultation",
     title: "Consultation & Strategy",
     description:
-      "We help individuals, founders, and businesses plan, evaluate and execute digital and technology-driven ideas across borders.",
+      "We partner with founders, enterprises, and commercial operators to structure, validate, and execute technology-driven businesses.",
     iconName: "Compass",
     services: [
-      "Digital business consultation",
-      "Product & MVP strategy",
-      "CTO & technology advisory",
-      "Digital transformation planning",
+      "Product & MVP execution strategy",
+      "Technology & architecture advisory",
+      "Commercial venture structuring",
+      "Digital transformation roadmaps",
     ],
   },
 ];
 
+// PRIORITY 3: Three Distinct Portfolio Classifications
 export const PORTFOLIO_PROJECTS: PortfolioItem[] = [
+  // --- 1. LIVE PRODUCTS ---
   {
     id: "receipta",
     title: "Receipta",
-    category: "Enterprise Digital Receipts & Business Invoicing SaaS",
-    description:
-      "A professional-grade financial documentation platform built for modern businesses, merchants, and service providers. Receipta replaces paper clutter with instant, branded, and verifiable digital receipts, automated client billing records, and audit-ready transaction histories.",
-    executiveHighlight:
-      "Solves merchant record-keeping friction and elevates brand trust with instant digital proof-of-payment.",
+    group: "LIVE PRODUCTS",
+    category: "Digital Invoicing & Receipt Infrastructure",
+    shortDescription:
+      "Professional financial documentation tool enabling businesses to generate instant, verifiable digital receipts and track client billing.",
+    fullOverview:
+      "Receipta replaces manual paper booklets with a structured digital invoicing and receipt system for merchants, freelancers, and growing enterprises. Businesses can issue branded proof-of-payment in seconds and maintain searchable transaction records.",
+    keyCapabilities: [
+      "Instant branded digital receipt generation",
+      "Centralized client billing & transaction history",
+      "Shareable verification links via WhatsApp & Email",
+      "Multi-business record organization",
+    ],
+    logo: "/projects/receipta.jpg",
     image: "/projects/receipta.jpg",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js"],
-    link: "https://receipta.cv",
-    primaryCtaText: "Launch Receipta",
-    isExternal: true,
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Cloud DB"],
+    visitUrl: "https://receipta.cv",
     status: "Live",
   },
   {
     id: "catalogpal",
     title: "CatalogPal",
-    category: "Smart Digital Product Catalogue & Merchant Showcase",
-    description:
-      "An intuitive commerce enablement tool that turns static product lists into interactive, shareable digital catalogues. Built for vendors and growing brands to organize inventory, update pricing in real time, and convert social or mobile traffic into direct customer orders.",
-    executiveHighlight:
-      "Empowers businesses to showcase full product lines via a single link without complex store setup.",
+    group: "LIVE PRODUCTS",
+    category: "Interactive Product Catalogue Platform",
+    shortDescription:
+      "Commerce enablement platform that transforms static inventory lists into shareable, mobile-ready digital product catalogues.",
+    fullOverview:
+      "CatalogPal helps vendors, wholesalers, and retail brands showcase their products cleanly through a single link. Merchants can update pricing and availability in real time while allowing customers to browse and enquire seamlessly.",
+    keyCapabilities: [
+      "Real-time product & price management",
+      "Mobile-first visual catalogue layouts",
+      "Direct customer order routing",
+      "Zero-code merchant setup",
+    ],
+    logo: "/projects/catalogpal.jpg",
     image: "/projects/catalogpal.jpg",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Cloud Storage"],
-    link: "https://catalo-gpal.vercel.app",
-    primaryCtaText: "Explore CatalogPal",
-    isExternal: true,
-    status: "Live",
-  },
-  {
-    id: "velo-pulse",
-    title: "Velo Pulse",
-    category: "Digital News, Sports & Media Publishing Platform",
-    description:
-      "A high-speed digital newsroom and publishing platform delivering breaking stories, football analysis, tech updates, and cultural commentary. Engineered with instant search and mobile-first readability—and currently expanding its editorial desk with new writers and journalists.",
-    executiveHighlight:
-      "We are actively recruiting passionate writers, sports analysts, and contributors to publish on Velo Pulse.",
-    image: "/projects/velopulse.jpg",
-    techStack: ["Next.js", "Editorial CMS", "Technical SEO", "Tailwind CSS"],
-    link: "https://velo-pulse.cv",
-    primaryCtaText: "Read News on Velo Pulse",
-    secondaryCta: {
-      label: "Apply as a Writer",
-      href: `https://wa.me/2349073754047?text=${encodeURIComponent(
-        "Hello Nexora Group, I would like to apply as a writer/contributor for Velo Pulse (velo-pulse.cv)."
-      )}`,
-      badge: "Hiring Writers",
-    },
-    isExternal: true,
+    visitUrl: "https://catalogpal.cv",
     status: "Live",
   },
   {
     id: "africommerce",
     title: "Africommerce",
-    category: "E-Commerce & Multi-Vendor Storefront Builder",
-    description:
-      "Comprehensive digital commerce infrastructure built for African and international merchants to launch custom online storefronts, manage inventory, and scale digital retail operations.",
-    executiveHighlight:
-      "Bridges the gap between informal social selling and structured, scalable online storefronts.",
+    group: "LIVE PRODUCTS",
+    category: "Multi-Vendor E-Commerce Storefront Builder",
+    shortDescription:
+      "Customizable web storefront infrastructure built for merchants to launch structured online stores and scale retail operations.",
+    fullOverview:
+      "Africommerce bridges the gap between informal social selling and structured e-commerce, providing merchants with dedicated storefronts, inventory controls, and customer order workflows.",
+    keyCapabilities: [
+      "Custom merchant storefront deployment",
+      "Inventory & product variant management",
+      "Integrated checkout & order tracking",
+      "Responsive mobile shopping experience",
+    ],
+    logo: "/projects/africommerce.jpg",
     image: "/projects/africommerce.jpg",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS"],
-    link: "https://africmm.cv",
-    primaryCtaText: "Visit Africommerce",
-    isExternal: true,
+    visitUrl: "https://africmm.cv",
+    status: "Live",
+  },
+  {
+    id: "velo-pulse",
+    title: "Velo Pulse",
+    group: "LIVE PRODUCTS",
+    category: "Digital News, Sports & Culture Publication",
+    shortDescription:
+      "Fast, modern editorial media platform covering news, business, technology, and sports—actively onboarding new writers and analysts.",
+    fullOverview:
+      "Velo Pulse is Nexora Group's digital publishing property engineered for mobile readability and search performance. Alongside daily coverage, Velo Pulse provides a platform for emerging journalists, football analysts, and industry contributors.",
+    keyCapabilities: [
+      "Multi-category editorial publishing (News, Business, Sports)",
+      "High-speed reader experience & technical SEO",
+      "Open contributor & writer onboarding program",
+      "Syndication-ready article architecture",
+    ],
+    logo: "/projects/velopulse.jpg",
+    image: "/projects/velopulse.jpg",
+    techStack: ["Next.js", "Editorial CMS", "Technical SEO", "Tailwind CSS"],
+    visitUrl: "https://velo-pulse.cv",
+    secondaryCta: {
+      label: "Apply as a Writer",
+      href: "mailto:info@nexora-group.cv?subject=Writer%20Application%20for%20Velo%20Pulse",
+    },
     status: "Live",
   },
   {
     id: "creator-unite",
     title: "Creator Unite",
-    category: "Creator Community & Event Registration Platform",
-    description:
-      "Centralised ecosystem for digital creators, hosts, and community builders to coordinate flagship events, manage attendee registrations, and foster cross-industry partnerships.",
-    executiveHighlight:
-      "Streamlines event ticketing, community onboarding, and creator networking in one hub.",
+    group: "LIVE PRODUCTS",
+    category: "Creator Community & Event Platform",
+    shortDescription:
+      "Digital hub connecting creators, event hosts, and creative professionals for flagship industry gatherings and collaborations.",
+    fullOverview:
+      "Developed to support the creative ecosystem, Creator Unite streamlines event discovery, attendee registration, and community networking for digital creators and cultural initiatives.",
+    keyCapabilities: [
+      "Event showcase & attendee registration flow",
+      "Creator community directory & updates",
+      "Partner & sponsor visibility integration",
+      "Mobile-optimized event pass management",
+    ],
+    logo: "/projects/creatorunite.jpg",
     image: "/projects/creatorunite.jpg",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    link: "https://x-creator-unite.com",
-    primaryCtaText: "Visit Creator Unite",
-    isExternal: true,
+    visitUrl: "https://x-creator-unite.com",
     status: "Live",
   },
+
+  // --- 2. IN DEVELOPMENT ---
   {
     id: "profitpal",
     title: "ProfitPal",
-    category: "SME Business Management & Margin Tracking",
-    description:
-      "Operational clarity platform designed for business owners to track unit economics, monitor daily expenses, and calculate real-time net profitability without complex accounting software.",
-    executiveHighlight:
-      "Gives founders instant visibility into cash flow, cost of goods, and true net margins.",
+    group: "IN DEVELOPMENT",
+    category: "SME Margin, Expense & Cashflow Tracker",
+    shortDescription:
+      "Financial clarity application in active development to help SME owners monitor daily expenses, unit economics, and net profit.",
+    fullOverview:
+      "ProfitPal is being built for business operators who need clear answers on profitability without complex accounting software. It tracks cost of goods sold, operating expenses, and net margins in real time.",
+    keyCapabilities: [
+      "Automated net margin & unit economics calculation",
+      "Daily expense categorization & cashflow logs",
+      "Visual profit/loss performance dashboards",
+      "Seamless integration path with Receipta",
+    ],
+    logo: "/projects/profitpal.jpg",
     image: "/projects/profitpal.jpg",
-    techStack: ["Next.js", "TypeScript", "Analytics UI"],
-    link: "#contact",
-    primaryCtaText: "Request Early Access",
-    isExternal: false,
-    status: "Beta",
+    techStack: ["Next.js", "TypeScript", "Financial Analytics"],
+    status: "In Development",
+  },
+
+  // --- 3. RESEARCH & DEVELOPMENT ---
+  {
+    id: "become-a-legend",
+    title: "Become A Legend",
+    group: "RESEARCH & DEVELOPMENT",
+    category: "3rd-Person Football Career & Action Simulation",
+    shortDescription:
+      "Original third-person football video game focused on individual player career progression, spatial pitch control, and tactical IQ.",
+    fullOverview:
+      "Become A Legend shifts football gaming from a top-down broadcast camera to an immersive third-person perspective right on the pitch. Players control a single athlete rising from grassroots academy pitches to professional stadiums.",
+    keyCapabilities: [
+      "Close-camera 3rd-person movement, dribbling & striking",
+      "Grassroots-to-pro career story & attribute progression",
+      "Real-time positional & tactical evaluation engine",
+      "Dedicated seed investment & studio partnership track",
+    ],
+    logo: "/hero-image.jpg",
+    image: "/hero-image.jpg",
+    techStack: ["3D Game Engine", "Player Physics", "Tactical AI", "Cross-Platform"],
+    learnMoreUrl: "/projects/become-a-legend",
+    status: "R&D",
   },
 ];
 

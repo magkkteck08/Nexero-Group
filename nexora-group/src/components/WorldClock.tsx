@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Globe2 } from "lucide-react";
+import { Clock } from "lucide-react";
 import { WORLD_CLOCK_LOCATIONS, ClockLocation } from "../config/siteConfig";
 
 interface FormattedClock {
   time: string;
-  date: string;
   tzShort: string;
 }
 
@@ -18,13 +17,6 @@ function formatLocationTime(now: Date, timeZone: string): FormattedClock {
     second: "2-digit",
     hour12: false,
   });
-  const dateFormatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone,
-    weekday: "short",
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
   const tzFormatter = new Intl.DateTimeFormat("en-US", {
     timeZone,
     timeZoneName: "shortOffset",
@@ -34,7 +26,6 @@ function formatLocationTime(now: Date, timeZone: string): FormattedClock {
     tzParts.find((p) => p.type === "timeZoneName")?.value || timeZone;
   return {
     time: timeFormatter.format(now),
-    date: dateFormatter.format(now),
     tzShort,
   };
 }
@@ -52,64 +43,36 @@ export default function WorldClock() {
 
   return (
     <section
-      aria-label="Global Operating Hours"
-      className="relative z-20 -mt-6 sm:-mt-10 pb-12 border-b border-zinc-900"
+      aria-label="Global Time Reference"
+      className="bg-zinc-950 border-t border-zinc-900 py-8"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="rounded-2xl bg-zinc-900/70 backdrop-blur-xl border border-zinc-800/90 p-4 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
-          {/* Top Command Header */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-zinc-800/80">
-            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-blue-400">
-              <Globe2 className="w-4 h-4 text-blue-400 animate-spin [animation-duration:12s]" />
-              <span>Global Operations Command &amp; Live Time Sync</span>
-            </div>
-            <div className="flex items-center gap-2 text-[10px] sm:text-xs text-zinc-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-              <span>Active Across 4 International Time Zones</span>
-            </div>
+      <div className="max-w-7xl mx-auto px-5 sm:px-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 sm:p-5 rounded-xl bg-zinc-900/40 border border-zinc-800/80">
+          <div className="flex items-center gap-2.5 text-xs font-semibold uppercase tracking-wider text-zinc-400 shrink-0">
+            <Clock className="w-4 h-4 text-amber-400" />
+            <span>Global Time Reference</span>
           </div>
 
-          {/* 2-Column on Mobile, 4-Column on Desktop */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 w-full lg:w-auto">
             {WORLD_CLOCK_LOCATIONS.map((loc: ClockLocation) => {
               const formatted =
                 mounted && now ? formatLocationTime(now, loc.timeZone) : null;
               return (
                 <div
                   key={loc.timeZone}
-                  className={`relative rounded-xl p-3.5 sm:p-4 border transition-all duration-300 ${
-                    loc.isPrimary
-                      ? "bg-gradient-to-br from-blue-950/60 via-zinc-900/90 to-zinc-950 border-blue-500/50 shadow-[0_0_25px_rgba(59,130,246,0.15)]"
-                      : "bg-zinc-950/70 border-zinc-800/80 hover:border-zinc-700"
-                  }`}
+                  className="flex items-center justify-between sm:justify-start gap-3 px-3 py-2 rounded-lg bg-zinc-950/80 border border-zinc-800/70"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                    <div>
-                      <p className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
-                        <span>{loc.city}</span>
-                        {loc.isPrimary && (
-                          <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-500 text-white shadow-sm">
-                            HQ
-                          </span>
-                        )}
-                      </p>
-                      <p className="text-[10px] sm:text-xs text-zinc-400">
-                        {loc.country}
-                      </p>
-                    </div>
-                    <span className="text-[9px] sm:text-[10px] font-mono text-blue-300 bg-blue-950/40 px-2 py-0.5 rounded border border-blue-500/20 w-fit">
+                  <div>
+                    <p className="text-xs font-semibold text-white">
+                      {loc.city}
+                    </p>
+                    <p className="text-[10px] text-zinc-500">
                       {formatted ? formatted.tzShort : "---"}
-                    </span>
+                    </p>
                   </div>
-
-                  <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-zinc-800/70 flex flex-col sm:flex-row sm:items-baseline justify-between gap-0.5">
-                    <span className="text-lg sm:text-2xl font-mono font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent tracking-tight">
-                      {formatted ? formatted.time : "--:--:--"}
-                    </span>
-                    <span className="text-[9px] sm:text-[11px] text-zinc-400">
-                      {formatted ? formatted.date : "Syncing..."}
-                    </span>
-                  </div>
+                  <span className="text-xs sm:text-sm font-mono font-bold text-amber-400">
+                    {formatted ? formatted.time : "--:--:--"}
+                  </span>
                 </div>
               );
             })}
