@@ -10,40 +10,41 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-20 sm:py-28 bg-zinc-950 border-b border-zinc-900"
+      className="py-20 sm:py-24 border-b-2 border-[#1E1B2E]"
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 space-y-16">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 space-y-16">
         <div className="grid lg:grid-cols-12 gap-10 items-start">
           {/* Corporate Overview */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-amber-400">
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-[#F7D147] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E]">
               <Building2 className="w-4 h-4" />
               <span>About Nexora Group</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Practical Problem-Solving Backed by Strategic Execution
+            <h2 className="text-3xl sm:text-5xl font-black text-[#1E1B2E] tracking-tight leading-[1.12]">
+              Practical Problem-Solving Backed by{" "}
+              <span className="text-[#3E735E]">Strategic Execution.</span>
             </h2>
 
-            <p className="text-zinc-300 text-base leading-relaxed">
+            <p className="text-[#4A4857] text-base font-medium leading-relaxed">
               Nexora Group is a multi-sector enterprise that builds, develops, operates, and invests in technology products and commercial ventures. Our software platforms are one pillar of the group—alongside interactive gaming, digital media publishing, physical product distribution, and emerging commercial opportunities.
             </p>
 
-            <blockquote className="p-5 sm:p-6 rounded-xl bg-zinc-900/70 border-l-4 border-amber-400 text-sm sm:text-base text-zinc-200 italic leading-relaxed">
+            <div className="nb-card p-5 sm:p-6 bg-[#FEF0B6] text-sm sm:text-base font-bold text-[#1E1B2E] italic leading-relaxed">
               &ldquo;{founder.visionQuote}&rdquo;
-            </blockquote>
+            </div>
 
             <div className="pt-2 flex flex-wrap gap-4">
               <Link
                 href="/company"
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+                className="nb-btn-primary text-xs sm:text-sm"
               >
                 <span>View Full Corporate Profile</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/investors"
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-300 hover:text-white transition-colors"
+                className="nb-btn-secondary text-xs sm:text-sm"
               >
                 <span>Investor &amp; Partnership Overview</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -52,9 +53,9 @@ export default function About() {
           </div>
 
           {/* Founder & Group Executive Profile */}
-          <div className="lg:col-span-5 bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6">
+          <div className="lg:col-span-5 nb-card bg-white p-6 sm:p-8 space-y-6">
             <div className="flex items-center gap-4">
-              <div className="relative w-20 h-20 rounded-xl overflow-hidden border border-amber-500/40 bg-zinc-800 shrink-0">
+              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-[#1E1B2E] bg-[#F7D147] shadow-[0_3px_0_0_#1E1B2E] shrink-0">
                 <Image
                   src={founder.image}
                   alt={founder.name}
@@ -64,37 +65,37 @@ export default function About() {
                 />
               </div>
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-amber-400">
+                <span className="inline-block rounded-full border border-[#1E1B2E] bg-[#98E2C6] px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-widest text-[#1E1B2E]">
                   Executive Leadership
-                </p>
-                <h3 className="text-lg sm:text-xl font-bold text-white mt-0.5">
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-[#1E1B2E] mt-1">
                   {founder.name}
                 </h3>
-                <p className="text-xs sm:text-sm font-medium text-zinc-400">
+                <p className="text-xs sm:text-sm font-bold text-[#3E735E]">
                   {founder.role}
                 </p>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#4A4857] font-medium leading-relaxed">
               {founder.summary}
             </p>
 
             {/* Division Responsibilities */}
-            <div className="space-y-3 pt-2 border-t border-zinc-800/80">
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            <div className="space-y-3 pt-3 border-t-2 border-[#1E1B2E]">
+              <p className="text-xs font-black uppercase tracking-wider text-[#1E1B2E]">
                 Group Responsibilities
               </p>
               <div className="space-y-2.5">
                 {founder.responsibilities.map((item) => (
                   <div
                     key={item.division}
-                    className="p-3 rounded-lg bg-zinc-950/80 border border-zinc-800/80"
+                    className="p-3.5 rounded-xl bg-[#FFFDF5] border-2 border-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E]"
                   >
-                    <p className="text-xs font-bold text-white">
+                    <p className="text-xs font-black text-[#1E1B2E]">
                       {item.division}
                     </p>
-                    <p className="text-[11px] text-zinc-400 mt-0.5 leading-relaxed">
+                    <p className="text-[11px] font-medium text-[#5A5868] mt-0.5 leading-relaxed">
                       {item.detail}
                     </p>
                   </div>
@@ -103,15 +104,15 @@ export default function About() {
             </div>
 
             {/* Executive Links */}
-            <div className="pt-3 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
+            <div className="pt-4 border-t-2 border-[#1E1B2E] flex flex-wrap items-center justify-between gap-3">
               <a
                 href={founder.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white border border-zinc-700 transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-extrabold px-4 py-2 rounded-full bg-[#F7D147] text-[#1E1B2E] border-2 border-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:translate-y-[1px] transition-all"
               >
                 <svg
-                  className="w-3.5 h-3.5 text-amber-400 fill-current"
+                  className="w-3.5 h-3.5 text-[#1E1B2E] fill-current"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                 >
@@ -123,9 +124,9 @@ export default function About() {
 
               <a
                 href={`mailto:${founder.email}`}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-amber-400 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1E1B2E] hover:underline"
               >
-                <Mail className="w-3.5 h-3.5" />
+                <Mail className="w-3.5 h-3.5 text-[#3E735E]" />
                 <span>{founder.email}</span>
               </a>
             </div>

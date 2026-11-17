@@ -1,240 +1,188 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { X, Shield, FileText, ArrowUpRight } from "lucide-react";
-import { SITE_CONFIG, SERVICE_DIVISIONS } from "../config/siteConfig";
+import Image from "next/image";
+import {
+  Heart,
+  ArrowUpRight,
+  Mail,
+  MapPin,
+  MessageCircle,
+} from "lucide-react";
+import { SITE_CONFIG } from "../config/siteConfig";
+import { CENTRAL_WHATSAPP_URL } from "./Contact";
 
-type LegalDocType = "privacy" | "terms" | null;
+const BUY_ME_A_MALT_URL = "https://buymeamalt.com/@becomealegend";
+const FOOTER_MAIL_URL =
+  "mailto:magkk.muizomoyele@gmail.com?subject=%5BNexora%20Group%20-%20Executive%20Desk%5D%20Direct%20Inquiry";
 
 export default function Footer() {
-  const [currentYear, setCurrentYear] = useState<number | null>(null);
-  const [activeLegalModal, setActiveLegalModal] = useState<LegalDocType>(null);
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveLegalModal(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  useEffect(() => {
-    if (activeLegalModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [activeLegalModal]);
-
   return (
-    <>
-      <footer className="bg-zinc-950 text-zinc-400 text-sm border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 py-14 sm:py-16 grid grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 border-b border-zinc-900">
-          {/* Col 1: Brand */}
-          <div className="col-span-2 lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-2.5 text-white font-bold tracking-tight text-lg">
-              <span className="w-2.5 h-2.5 rounded-sm bg-amber-400 inline-block" />
-              <span>{SITE_CONFIG.name}</span>
+    <footer className="border-t-2 border-[#1E1B2E] bg-[#FFFDF5] px-5 py-14 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        {/* 4 Vertical Columns Grid */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
+          {/* Column 1: Brand + Donor CTA */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-5">
+            <div className="space-y-3">
+              <Link href="/" className="flex items-center gap-3 w-fit">
+                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 border-[#1E1B2E] bg-[#F7D147] shadow-[0_2px_0_0_#1E1B2E]">
+                  <Image
+                    src="/nexora-logo.png"
+                    alt="Nexora Group"
+                    width={28}
+                    height={28}
+                    className="object-contain"
+                  />
+                </div>
+                <span className="text-2xl font-black tracking-tight text-[#1E1B2E]">
+                  nexora group
+                </span>
+              </Link>
+
+              <p className="text-sm font-medium leading-relaxed text-[#5A5868]">
+                A multi-sector technology holding company building software platforms, media networks, and interactive gaming experiences.
+              </p>
             </div>
-            <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-sm">
-              {SITE_CONFIG.corporatePositioning} A multi-sector enterprise building, operating, and scaling technology platforms and commercial ventures.
-            </p>
+
+            <div>
+              <a
+                href={BUY_ME_A_MALT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-[#75452d] px-5 py-2.5 text-xs font-extrabold text-white shadow-[0_3px_0_0_#1E1B2E] transition-all hover:translate-y-[1.5px] hover:shadow-[0_1.5px_0_0_#1E1B2E] w-fit"
+              >
+                <Heart className="w-4 h-4 fill-[#F7D147] text-[#F7D147]" />
+                <span>Buy me a Gemini AI subscription</span>
+                <ArrowUpRight className="w-4 h-4 text-[#F7D147]" />
+              </a>
+            </div>
           </div>
 
-          {/* Col 2: Corporate Pages */}
-          <div className="col-span-1 lg:col-span-2 space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white">
+          {/* Column 2: Vertical Navigation Column */}
+          <div className="lg:col-span-2 flex flex-col space-y-3">
+            <p className="text-xs font-black uppercase tracking-wider text-[#3E735E]">
               Navigation
             </p>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li><Link href="/" className="hover:text-amber-400 transition-colors">Home</Link></li>
-              <li><Link href="/company" className="hover:text-amber-400 transition-colors">Company Profile</Link></li>
-              <li><Link href="/investors" className="hover:text-amber-400 transition-colors">Investors &amp; Partners</Link></li>
-              <li><Link href="/#work" className="hover:text-amber-400 transition-colors">Product Portfolio</Link></li>
-              <li><Link href="/projects/become-a-legend" className="hover:text-amber-400 transition-colors">Become A Legend R&amp;D</Link></li>
-            </ul>
+            <div className="flex flex-col space-y-2.5 text-sm font-extrabold text-[#1E1B2E]">
+              <Link href="/" className="hover:underline w-fit">
+                Home
+              </Link>
+              <Link href="/company" className="hover:underline w-fit">
+                Company Profile
+              </Link>
+              <Link href="/#work" className="hover:underline w-fit">
+                Product Ecosystem
+              </Link>
+              <Link href="/#services" className="hover:underline w-fit">
+                Core Divisions
+              </Link>
+              <Link href="/investors" className="hover:underline w-fit">
+                Donor Campaign
+              </Link>
+              <Link href="/#contact" className="hover:underline w-fit">
+                Book Us / Contact
+              </Link>
+            </div>
           </div>
 
-          {/* Col 3: Divisions */}
-          <div className="col-span-1 lg:col-span-3 space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white">
-              Business Divisions
+          {/* Column 3: Vertical Ventures Column */}
+          <div className="lg:col-span-3 flex flex-col space-y-3">
+            <p className="text-xs font-black uppercase tracking-wider text-[#3E735E]">
+              Flagship Platforms
             </p>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              {SERVICE_DIVISIONS.map((div) => (
-                <li key={div.id}>
-                  <Link href="/#services" className="hover:text-amber-400 transition-colors">
-                    {div.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-col space-y-2.5 text-sm font-extrabold text-[#1E1B2E]">
+              <Link href="/#work" className="hover:underline w-fit">
+                Receipta (Smart Billing)
+              </Link>
+              <Link href="/#work" className="hover:underline w-fit">
+                CatalogPal (Merchant Tool)
+              </Link>
+              <Link href="/#work" className="hover:underline w-fit">
+                Africommerce (Storefronts)
+              </Link>
+              <Link href="/#work" className="hover:underline w-fit">
+                Velo Pulse (Digital Media)
+              </Link>
+              <Link
+                href="/projects/become-a-legend"
+                className="inline-flex items-center gap-1.5 hover:underline w-fit text-[#3E735E]"
+              >
+                <span>⚽ Become A Legend (R&amp;D)</span>
+              </Link>
+            </div>
           </div>
 
-          {/* Col 4: Clean Corporate Desk Links (Hides Raw Emails/URLs) */}
-          <div className="col-span-2 lg:col-span-3 space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white">
-              Corporate Desks
-            </p>
-            <ul className="space-y-2.5 text-xs sm:text-sm">
-              <li>
-                <a
-                  href={`mailto:${SITE_CONFIG.emails.general}`}
-                  className="inline-flex items-center gap-1 hover:text-amber-400 transition-colors"
-                >
-                  <span>General Enquiries Desk</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${SITE_CONFIG.emails.partnerships}`}
-                  className="inline-flex items-center gap-1 hover:text-amber-400 transition-colors"
-                >
-                  <span>Partnerships &amp; Commercial</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${SITE_CONFIG.emails.founder}`}
-                  className="inline-flex items-center gap-1 hover:text-amber-400 transition-colors"
-                >
-                  <span>Founder &amp; Executive Office</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </li>
-              <li className="text-zinc-500 pt-1">{SITE_CONFIG.contact.location}</li>
-            </ul>
-          </div>
-        </div>
+          {/* Column 4: Direct Booking & Executive Buttons */}
+          <div className="lg:col-span-3 flex flex-col justify-between space-y-5">
+            <div className="space-y-3">
+              <p className="text-xs font-black uppercase tracking-wider text-[#3E735E]">
+                Direct Booking &amp; Desk
+              </p>
 
-        {/* Bottom Legal Bar */}
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <p className="text-center sm:text-left">
-            © {currentYear !== null ? currentYear : "2026"} {SITE_CONFIG.name}. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => setActiveLegalModal("privacy")}
-              className="hover:text-amber-400 transition-colors underline-offset-4 hover:underline cursor-pointer"
-            >
-              Privacy Policy
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveLegalModal("terms")}
-              className="hover:text-amber-400 transition-colors underline-offset-4 hover:underline cursor-pointer"
-            >
-              Terms of Service
-            </button>
-          </div>
-        </div>
-      </footer>
+              <div className="flex flex-col gap-2">
+                <a
+                  href={CENTRAL_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-[#98E2C6] px-4 py-2 text-xs font-extrabold text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:translate-y-[1px] transition-all w-fit"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Direct WhatsApp</span>
+                </a>
 
-      {/* Legal Modal */}
-      {activeLegalModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/80 backdrop-blur-sm p-0 sm:p-6"
-          onClick={() => setActiveLegalModal(null)}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-3xl max-h-[88vh] sm:max-h-[85vh] bg-zinc-950 border-t sm:border border-zinc-800 rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-          >
-            <div className="px-5 sm:px-8 py-4 sm:py-5 bg-zinc-900/90 border-b border-zinc-800 flex items-center justify-between shrink-0">
-              <div className="flex items-center gap-2.5">
-                {activeLegalModal === "privacy" ? (
-                  <Shield className="w-5 h-5 text-amber-400" />
-                ) : (
-                  <FileText className="w-5 h-5 text-amber-400" />
-                )}
-                <div>
-                  <h2 className="text-base sm:text-lg font-bold text-white">
-                    {activeLegalModal === "privacy"
-                      ? "Privacy Policy"
-                      : "Terms of Service"}
-                  </h2>
-                  <p className="text-[11px] text-zinc-400">
-                    {SITE_CONFIG.name} • Corporate Governance
-                  </p>
-                </div>
+                <a
+                  href={FOOTER_MAIL_URL}
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-white px-4 py-2 text-xs font-extrabold text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:bg-[#F7D147] transition-all w-fit"
+                >
+                  <Mail className="w-3.5 h-3.5 text-[#3E735E]" />
+                  <span>Email Executive Desk</span>
+                </a>
               </div>
 
-              <button
-                type="button"
-                onClick={() => setActiveLegalModal(null)}
-                aria-label="Close modal"
-                className="p-2 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <p className="flex items-center gap-2 text-xs font-bold text-[#686677] pt-1">
+                <MapPin className="w-4 h-4 text-[#1E1B2E] shrink-0" />
+                <span>Oyo State, Nigeria · Global Operations</span>
+              </p>
             </div>
 
-            <div className="p-5 sm:p-8 overflow-y-auto space-y-6 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              {activeLegalModal === "privacy" ? (
-                <>
-                  <p className="text-zinc-400">
-                    This Privacy Policy describes how <strong>{SITE_CONFIG.name}</strong> collects, uses, and safeguards personal and corporate information across our website, SaaS platforms (<em>Receipta</em>, <em>CatalogPal</em>, <em>Africommerce</em>, <em>ProfitPal</em>, <em>Velo Pulse</em>, <em>Creator Unite</em>), gaming R&amp;D (<em>Become A Legend</em>), and commercial ventures.
-                  </p>
-                  <div className="space-y-2">
-                    <h3 className="text-sm sm:text-base font-bold text-white">1. Information Collection</h3>
-                    <p>We collect contact and corporate brief details voluntarily submitted through our enquiry portal, investor desk requests, or platform registrations.</p>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-sm sm:text-base font-bold text-white">2. Confidentiality &amp; Security</h3>
-                    <p>Nexora Group does not sell or trade personal or business data. All investor, partner, and client communications are handled under strict commercial confidentiality.</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className="text-zinc-400">
-                    By accessing <strong>{SITE_CONFIG.name}</strong> platforms or engaging our business divisions, you agree to these institutional Terms of Service.
-                  </p>
-                  <div className="space-y-2">
-                    <h3 className="text-sm sm:text-base font-bold text-white">1. Proprietary Intellectual Property</h3>
-                    <p>All software architectures, trademarks, and original titles—including <em>Become A Legend</em>, <em>Receipta</em>, <em>CatalogPal</em>, <em>Africommerce</em>, <em>ProfitPal</em>, <em>Velo Pulse</em>, and <em>Creator Unite</em>—remain the exclusive property of Nexora Group.</p>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-sm sm:text-base font-bold text-white">2. Forward-Looking &amp; R&amp;D Disclosures</h3>
-                    <p>Materials presented on our Investors and R&amp;D pages are for strategic evaluation and partnership discussions and do not constitute a public offering of securities.</p>
-                  </div>
-                </>
-              )}
-            </div>
-
-            <div className="px-5 sm:px-8 py-4 bg-zinc-900/90 border-t border-zinc-800 flex items-center justify-between shrink-0">
-              <button
-                type="button"
-                onClick={() =>
-                  setActiveLegalModal(
-                    activeLegalModal === "privacy" ? "terms" : "privacy"
-                  )
-                }
-                className="text-xs text-amber-400 hover:underline font-medium"
+            {/* Boxed Neo-Brutalist Social Icons */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://x.com/idanmagkk"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-[#1E1B2E] bg-white text-base font-black text-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] transition hover:translate-y-[1.5px] hover:bg-[#F7D147]"
               >
-                Switch to {activeLegalModal === "privacy" ? "Terms of Service" : "Privacy Policy"}
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveLegalModal(null)}
-                className="bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-bold px-5 py-2 rounded-lg transition-colors"
+                𝕏
+              </a>
+              <a
+                href={SITE_CONFIG.founder.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-[#1E1B2E] bg-white text-xs font-black text-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] transition hover:translate-y-[1.5px] hover:bg-[#F7D147]"
               >
-                Close
-              </button>
+                IN
+              </a>
+              <a
+                href="https://github.com/magkkteck08"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-xl border-2 border-[#1E1B2E] bg-white text-xs font-black text-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] transition hover:translate-y-[1.5px] hover:bg-[#F7D147]"
+              >
+                GH
+              </a>
             </div>
           </div>
         </div>
-      )}
-    </>
+
+        {/* Bottom Copyright Bar */}
+        <div className="mt-12 border-t-2 border-[#1E1B2E] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-bold text-[#5A5868]">
+          <p>© 2026 Nexora Group. All rights reserved.</p>
+          <p>Engineered for African &amp; Global Digital Commerce.</p>
+        </div>
+      </div>
+    </footer>
   );
 }

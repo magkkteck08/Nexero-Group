@@ -19,21 +19,28 @@ const ICON_MAP = {
   Compass,
 };
 
+const CARD_THEMES = [
+  "bg-[#FEF0B6]",
+  "bg-[#EBF3F9]",
+  "bg-white",
+  "bg-[#E8F8F0]",
+];
+
 export default function Services() {
   return (
     <section
       id="services"
-      className="py-20 sm:py-28 bg-gradient-to-b from-[#090D16] to-[#0F172A] border-b border-slate-800/80"
+      className="py-20 sm:py-24 border-b-2 border-[#1E1B2E]"
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 space-y-12">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 space-y-12">
         <div className="max-w-2xl space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-blue-400">
+          <span className="inline-block rounded-full border-2 border-[#1E1B2E] bg-[#EBF3F9] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E]">
             Core Divisions
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1E1B2E] tracking-tight">
             Four Specialized Pillars Built for Execution
           </h2>
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="text-[#5A5868] text-sm sm:text-base font-medium leading-relaxed">
             Our technology and advisory capabilities are structured into four dedicated divisions serving startups, enterprises, and commercial partners.
           </p>
         </div>
@@ -41,6 +48,7 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7">
           {SERVICE_DIVISIONS.map((division: ServiceDivision, idx: number) => {
             const IconComponent = ICON_MAP[division.iconName];
+            const cardBg = CARD_THEMES[idx % CARD_THEMES.length];
 
             return (
               <motion.div
@@ -48,19 +56,19 @@ export default function Services() {
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="group bg-[#131C31]/90 hover:bg-[#17223B] border border-slate-800 hover:border-blue-500/40 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all shadow-lg"
+                transition={{ duration: 0.35, delay: idx * 0.05 }}
+                className={`nb-card ${cardBg} p-6 sm:p-8 flex flex-col justify-between transition-transform hover:-translate-y-1`}
               >
                 <div className="space-y-5">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                  <div className="w-12 h-12 rounded-xl bg-[#F7D147] border-2 border-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] flex items-center justify-center text-[#1E1B2E]">
                     <IconComponent className="w-6 h-6" />
                   </div>
 
-                  <div className="space-y-2.5">
-                    <h3 className="text-xl font-bold text-white">
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-black text-[#1E1B2E]">
                       {division.title}
                     </h3>
-                    <p className="text-sm text-slate-300 leading-relaxed">
+                    <p className="text-sm text-[#4A4857] font-medium leading-relaxed">
                       {division.description}
                     </p>
                   </div>
@@ -69,19 +77,19 @@ export default function Services() {
                     {division.services.map((item) => (
                       <li
                         key={item}
-                        className="flex items-center gap-2.5 text-sm text-slate-200"
+                        className="flex items-center gap-2 text-xs sm:text-sm font-bold text-[#1E1B2E] bg-white/80 px-3 py-2 rounded-xl border-2 border-[#1E1B2E]"
                       >
-                        <Check className="w-4 h-4 text-blue-400 shrink-0" />
+                        <Check className="w-4 h-4 text-[#3E735E] shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="mt-8 pt-5 border-t border-slate-800 flex items-center justify-between">
+                <div className="mt-8 pt-5 border-t-2 border-[#1E1B2E] flex items-center justify-between">
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-blue-400 group-hover:text-blue-300 transition-colors"
+                    className="inline-flex items-center gap-1.5 rounded-full border-2 border-[#1E1B2E] bg-[#F7D147] px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] hover:translate-y-[1.5px] hover:shadow-[0_1.5px_0_0_#1E1B2E] transition-all"
                   >
                     <span>Enquire About {division.title.split(" ")[0]}</span>
                     <ArrowUpRight className="w-4 h-4" />

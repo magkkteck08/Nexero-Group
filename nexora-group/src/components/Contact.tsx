@@ -1,382 +1,288 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import {
-  MapPin,
-  Send,
-  CheckCircle2,
-  AlertCircle,
-  Loader2,
-  MessageSquare,
-  ArrowUpRight,
-  Building2,
   Handshake,
   Wrench,
-  ShieldAlert,
+  HeartHandshake,
+  Send,
+  CheckCircle2,
+  Mail,
+  ArrowUpRight,
+  MessageCircle,
 } from "lucide-react";
-import { SITE_CONFIG } from "../config/siteConfig";
+
+// Inside src/components/Contact.tsx (Line 16)
+export const DONOR_CAMPAIGN_URL = "https://buymeamalt.com/@becomealegend";
+
+// Centralized Email & WhatsApp (Kept inside hrefs only — never shown as raw text)
+const CENTRAL_EMAIL = "magkk.muizomoyele@gmail.com";
+export const CENTRAL_WHATSAPP_URL =
+  "https://wa.me/2349073754047?text=Hello%20Nexora%20Group%2C%20I%20would%20like%20to%20book%20your%20services%20or%20make%20an%20inquiry.";
 
 const CORPORATE_DESKS = [
   {
-    title: "General Enquiries Desk",
-    subtitle: "Corporate information & general correspondence",
-    categoryValue: "General Enquiry",
-    email: SITE_CONFIG.emails.general,
-    icon: Building2,
-  },
-  {
     title: "Partnerships & Commercial",
-    subtitle: "B2B alliances, distribution & venture collaboration",
-    categoryValue: "Partnership & Commercial",
-    email: SITE_CONFIG.emails.partnerships,
+    subtitle: "B2B alliances, distribution, project bookings & venture collaboration",
+    categoryValue: "Partnerships & Commercial",
+    subjectTag: "[Nexora Group - Partnerships & Commercial] B2B & Booking Inquiry",
+    buttonLabel: "Email Partnerships Desk",
     icon: Handshake,
+    bg: "bg-[#FEF0B6]",
   },
   {
     title: "Technical & Product Support",
-    subtitle: "Platform assistance for Receipta, CatalogPal & SaaS",
-    categoryValue: "Product / Technical Support",
-    email: SITE_CONFIG.emails.support,
+    subtitle: "Platform assistance for Receipta, CatalogPal, Africommerce & SaaS",
+    categoryValue: "Technical & Product Support",
+    subjectTag: "[Nexora Group - Technical & Product Support] Platform Assistance",
+    buttonLabel: "Email Support Desk",
     icon: Wrench,
+    bg: "bg-[#EBF3F9]",
   },
   {
-    title: "Founder & Executive Office",
-    subtitle: "Investor relations, R&D & executive communications",
-    categoryValue: "Investor Relations",
-    email: SITE_CONFIG.emails.founder,
-    icon: ShieldAlert,
+    title: "Donor Campaign & Founder Desk",
+    subtitle: "Back our R&D via BuyMeAMalt or message the executive desk directly",
+    categoryValue: "Donor Campaign & Founder Desk",
+    subjectTag: "[Nexora Group - Founder & Donor Desk] Executive Inquiry",
+    buttonLabel: "Email Founder Desk",
+    icon: HeartHandshake,
+    bg: "bg-[#E8F8F0]",
+    campaignUrl: DONOR_CAMPAIGN_URL,
   },
 ];
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    organization: "",
-    email: "",
-    phone: "",
-    category: "General Enquiry",
-    message: "",
-  });
-
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
-  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [category, setCategory] = useState(CORPORATE_DESKS[0].categoryValue);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("submitting");
-    setFeedbackMessage("");
-
+    setLoading(true);
     try {
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name,
+          email,
+          category,
+          subject: `[Nexora Group - ${category}] Inquiry from ${name}`,
+          message,
+        }),
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send message.");
+      if (res.ok) {
+        setSent(true);
+        setName("");
+        setEmail("");
+        setMessage("");
       }
-
-      setStatus("success");
-      setFeedbackMessage(
-        data.message ||
-          "Thank you. Your enquiry has been delivered and an automatic confirmation has been sent to your inbox."
-      );
-      setFormData({
-        name: "",
-        organization: "",
-        email: "",
-        phone: "",
-        category: "General Enquiry",
-        message: "",
-      });
-    } catch (err: unknown) {
-      setStatus("error");
-      setFeedbackMessage(
-        err instanceof Error
-          ? err.message
-          : "Unable to process submission right now. Please use our direct WhatsApp or mail link."
-      );
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <section
       id="contact"
-      className="relative py-20 sm:py-28 bg-zinc-950 border-b border-zinc-900 overflow-hidden"
+      className="py-20 sm:py-24 border-b-2 border-[#1E1B2E]"
     >
-      {/* Subtle Ambient Gold Glow */}
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-        {/* Left Column: Clean Corporate Routing Cards (No Exposed Emails) */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="lg:col-span-5 space-y-7"
-        >
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-amber-400">
-              Corporate Communications
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Connect With Our Executive Desks
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 space-y-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-2xl space-y-3">
+            <span className="inline-block rounded-full border-2 border-[#1E1B2E] bg-[#F7D147] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E]">
+              Direct Communications &amp; Booking
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black text-[#1E1B2E] tracking-tight">
+              Corporate &amp; Booking Desks
             </h2>
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-              Select a department below to route your message directly through our encrypted portal, or launch your mail client with one click.
+            <p className="text-sm sm:text-base font-medium text-[#5A5868]">
+              Select a desk below, chat with us directly on WhatsApp, or send a structured dispatch. Every inquiry is automatically routed by subject.
             </p>
           </div>
 
-          <div className="space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
-              Official Corporate Desks
-            </p>
-
-            <div className="grid grid-cols-1 gap-3">
-              {CORPORATE_DESKS.map((desk) => {
-                const Icon = desk.icon;
-                const isSelected = formData.category === desk.categoryValue;
-                return (
-                  <div
-                    key={desk.title}
-                    onClick={() =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        category: desk.categoryValue,
-                      }))
-                    }
-                    className={`group cursor-pointer p-4 rounded-xl border transition-all duration-200 flex items-center justify-between gap-4 ${
-                      isSelected
-                        ? "bg-zinc-900/95 border-amber-500/60 shadow-[0_0_25px_rgba(245,158,11,0.08)]"
-                        : "bg-zinc-900/40 border-zinc-800/90 hover:border-zinc-700 hover:bg-zinc-900/70"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3.5">
-                      <div
-                        className={`p-2.5 rounded-lg border shrink-0 mt-0.5 transition-colors ${
-                          isSelected
-                            ? "bg-amber-500/15 border-amber-500/40 text-amber-400"
-                            : "bg-zinc-950 border-zinc-800 text-zinc-400 group-hover:text-amber-400"
-                        }`}
-                      >
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
-                          {desk.title}
-                        </p>
-                        <p className="text-xs text-zinc-400 mt-0.5 leading-snug">
-                          {desk.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <a
-                      href={`mailto:${desk.email}`}
-                      onClick={(e) => e.stopPropagation()}
-                      title={`Compose direct email to ${desk.title}`}
-                      className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg bg-zinc-950 hover:bg-amber-500 hover:text-zinc-950 text-zinc-300 border border-zinc-800 transition-colors"
-                    >
-                      <span>Mail</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Clean Location & Instant WhatsApp Link (No Raw Numbers/URLs Needed) */}
-          <div className="p-4 sm:p-5 rounded-xl bg-zinc-900/40 border border-zinc-800/80 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-300">
-            <div className="flex items-center gap-2.5">
-              <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>{SITE_CONFIG.contact.location}</span>
-            </div>
-
+          {/* Direct WhatsApp & Email Quick Buttons (Hidden Number & Email) */}
+          <div className="flex flex-wrap items-center gap-3">
             <a
-              href={`https://wa.me/${SITE_CONFIG.contact.whatsappNumber}`}
+              href={CENTRAL_WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-[#98E2C6] px-5 py-3 text-xs font-extrabold text-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] hover:translate-y-[1.5px] transition-all"
             >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>Direct Executive WhatsApp</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <MessageCircle className="w-4 h-4" />
+              <span>Book via WhatsApp</span>
+            </a>
+
+            <a
+              href={`mailto:${CENTRAL_EMAIL}?subject=${encodeURIComponent(
+                "[Nexora Group - Direct Booking] Project Inquiry"
+              )}`}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-white px-5 py-3 text-xs font-extrabold text-[#1E1B2E] shadow-[0_3px_0_0_#1E1B2E] hover:translate-y-[1.5px] transition-all"
+            >
+              <Mail className="w-4 h-4 text-[#3E735E]" />
+              <span>Direct Booking Mail</span>
             </a>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Right Column: Resend-Connected Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, delay: 0.1 }}
-          className="lg:col-span-7 bg-gradient-to-b from-zinc-900/80 to-zinc-950 border border-zinc-800/90 rounded-2xl p-6 sm:p-10 shadow-2xl"
+        {/* 3 Desk Cards (No raw email text shown — pure action buttons with Subject routing) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {CORPORATE_DESKS.map((desk) => {
+            const Icon = desk.icon;
+            const mailtoHref = `mailto:${CENTRAL_EMAIL}?subject=${encodeURIComponent(
+              desk.subjectTag
+            )}`;
+
+            return (
+              <div
+                key={desk.title}
+                onClick={() => setCategory(desk.categoryValue)}
+                className={`nb-card ${desk.bg} p-6 flex flex-col justify-between cursor-pointer transition-transform hover:-translate-y-1`}
+              >
+                <div className="space-y-3">
+                  <div className="w-11 h-11 rounded-xl border-2 border-[#1E1B2E] bg-white flex items-center justify-center shadow-[0_2px_0_0_#1E1B2E]">
+                    <Icon className="w-5 h-5 text-[#1E1B2E]" />
+                  </div>
+                  <h3 className="text-lg font-black text-[#1E1B2E]">
+                    {desk.title}
+                  </h3>
+                  <p className="text-xs font-medium text-[#4A4857] leading-relaxed">
+                    {desk.subtitle}
+                  </p>
+                </div>
+
+                <div className="mt-5 flex flex-wrap items-center gap-2">
+                  <a
+                    href={mailtoHref}
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1.5 rounded-full border-2 border-[#1E1B2E] bg-white px-4 py-2 text-xs font-extrabold text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:bg-[#F7D147] transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#3E735E]" />
+                    <span>{desk.buttonLabel}</span>
+                  </a>
+
+                  {desk.campaignUrl && (
+                    <a
+                      href={desk.campaignUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1 rounded-full border-2 border-[#1E1B2E] bg-[#F7D147] px-3.5 py-2 text-xs font-extrabold text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:translate-y-[1px] transition-all"
+                    >
+                      <span>BuyMeAMalt</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Direct Dispatch Form (Sent via Resend to CENTRAL_EMAIL with Subject Line) */}
+        <form
+          onSubmit={handleSubmit}
+          className="nb-card bg-white p-6 sm:p-8 space-y-5"
         >
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-            <h3 className="text-xl font-bold text-white">
-              Official Enquiry Dispatch
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-xl font-black text-[#1E1B2E]">
+              Send an Instant Dispatch
             </h3>
-            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300">
-              Routing: {formData.category}
+            <span className="rounded-full border border-[#1E1B2E] bg-[#FEF0B6] px-3 py-0.5 text-[11px] font-extrabold text-[#1E1B2E]">
+              Subject: [Nexora Group - {category}]
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-zinc-400 mb-6">
-            Complete the brief below. You will receive an immediate confirmation receipt in your inbox.
-          </p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  placeholder="Your full name"
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-2">
-                  Company / Organization
-                </label>
-                <input
-                  type="text"
-                  value={formData.organization}
-                  onChange={(e) =>
-                    setFormData({ ...formData, organization: e.target.value })
-                  }
-                  placeholder="Organization or fund name"
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition-colors"
-                />
-              </div>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  placeholder="you@organization.com"
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-zinc-300 mb-2">
-                  Phone / WhatsApp (Optional)
-                </label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                  placeholder="International or local number"
-                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition-colors"
-                />
-              </div>
-            </div>
-
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-medium text-zinc-300 mb-2">
-                Select Destination Desk *
+              <label className="block text-xs font-extrabold uppercase text-[#1E1B2E] mb-1.5">
+                Full Name / Organization
               </label>
-              <select
-                value={formData.category}
-                onChange={(e) =>
-                  setFormData({ ...formData, category: e.target.value })
-                }
-                className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
-              >
-                <option value="General Enquiry">General Enquiries Desk</option>
-                <option value="Partnership & Commercial">
-                  Partnerships &amp; Commercial Desk
-                </option>
-                <option value="Investor Relations">
-                  Founder &amp; Investor Relations Office
-                </option>
-                <option value="Become A Legend (Game Investment)">
-                  Become A Legend — R&amp;D &amp; Seed Investment
-                </option>
-                <option value="Product / Technical Support">
-                  Product &amp; Technical Support Desk
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-zinc-300 mb-2">
-                Enquiry Details *
-              </label>
-              <textarea
-                rows={4}
+              <input
+                type="text"
                 required
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-                placeholder="Outline your partnership proposal, enquiry, or investment interest..."
-                className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition-colors"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name or brand"
+                className="w-full rounded-xl border-2 border-[#1E1B2E] bg-[#FFFDF5] px-3.5 py-2.5 text-sm font-medium text-[#1E1B2E] focus:outline-none focus:ring-2 focus:ring-[#F7D147]"
               />
             </div>
 
-            {status === "success" && (
-              <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-3 text-xs sm:text-sm text-emerald-300">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <span>{feedbackMessage}</span>
-              </div>
-            )}
-
-            {status === "error" && (
-              <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3 text-xs sm:text-sm text-red-300">
-                <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                <span>{feedbackMessage}</span>
-              </div>
-            )}
-
-            <div className="pt-2">
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 disabled:opacity-60 text-zinc-950 font-bold text-sm px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-amber-500/10 cursor-pointer"
-              >
-                {status === "submitting" ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Dispatching Enquiry...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>Submit Official Enquiry</span>
-                  </>
-                )}
-              </button>
+            <div>
+              <label className="block text-xs font-extrabold uppercase text-[#1E1B2E] mb-1.5">
+                Your Reply Email
+              </label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@domain.com"
+                className="w-full rounded-xl border-2 border-[#1E1B2E] bg-[#FFFDF5] px-3.5 py-2.5 text-sm font-medium text-[#1E1B2E] focus:outline-none focus:ring-2 focus:ring-[#F7D147]"
+              />
             </div>
-          </form>
-        </motion.div>
+
+            <div>
+              <label className="block text-xs font-extrabold uppercase text-[#1E1B2E] mb-1.5">
+                Subject / Desk Category
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full rounded-xl border-2 border-[#1E1B2E] bg-[#FFFDF5] px-3.5 py-2.5 text-sm font-bold text-[#1E1B2E] focus:outline-none focus:ring-2 focus:ring-[#F7D147]"
+              >
+                {CORPORATE_DESKS.map((d) => (
+                  <option key={d.categoryValue} value={d.categoryValue}>
+                    {d.categoryValue}
+                  </option>
+                ))}
+                <option value="Book Us for a Project">
+                  Book Us for a Project
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-extrabold uppercase text-[#1E1B2E] mb-1.5">
+              Message / Project Details
+            </label>
+            <textarea
+              rows={4}
+              required
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Tell us about your project, partnership, or support inquiry..."
+              className="w-full rounded-xl border-2 border-[#1E1B2E] bg-[#FFFDF5] px-3.5 py-2.5 text-sm font-medium text-[#1E1B2E] focus:outline-none focus:ring-2 focus:ring-[#F7D147]"
+            />
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+            {sent ? (
+              <span className="inline-flex items-center gap-2 text-sm font-extrabold text-[#3E735E]">
+                <CheckCircle2 className="w-4 h-4" /> Dispatched directly to Nexora Group!
+              </span>
+            ) : (
+              <span className="text-xs font-bold text-[#5A5868]">
+                Automatically tagged by subject and delivered via Resend.
+              </span>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="nb-btn-primary text-sm cursor-pointer"
+            >
+              <span>{loading ? "Sending..." : "Send Dispatch"}</span>
+              <Send className="w-4 h-4" />
+            </button>
+          </div>
+        </form>
       </div>
     </section>
   );
