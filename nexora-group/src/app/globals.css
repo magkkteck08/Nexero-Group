@@ -7,12 +7,23 @@
   --nexora-yellow: #F7D147;
 }
 
+html {
+  scroll-behavior: smooth;
+  /* Prevents sticky navbar from covering section titles when scrolling to anchors */
+  scroll-padding-top: 5.5rem;
+}
+
 body {
   background-color: var(--nexora-cream);
   color: var(--nexora-ink);
-  background-image: radial-gradient(#E5DEC9 1.3px, transparent 1.3px);
-  background-size: 22px 22px;
+  /* Softened dot grid so typography stands out cleanly */
+  background-image: radial-gradient(#EFE9D8 1px, transparent 1px);
+  background-size: 24px 24px;
 }
+
+/* ==========================================================================
+   1. NEO-BRUTALIST CORE COMPONENT CLASSES
+   ========================================================================== */
 
 /* Tactile Yellow Primary Pill Button */
 .nb-btn-primary {
@@ -24,7 +35,7 @@ body {
   border: 2px solid #1E1B2E;
   background-color: #F7D147;
   padding: 0.875rem 1.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #1E1B2E;
   box-shadow: 0 4px 0 0 #1E1B2E;
   transition: all 150ms ease;
@@ -50,7 +61,7 @@ body {
   border: 2px solid #1E1B2E;
   background-color: #FFFFFF;
   padding: 0.875rem 1.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #1E1B2E;
   box-shadow: 0 4px 0 0 #1E1B2E;
   transition: all 150ms ease;
@@ -95,22 +106,21 @@ body {
   box-shadow: 0 5px 0 0 #1E1B2E;
 }
 
-/* Append or replace the bottom animation block in src/app/globals.css */
+/* ==========================================================================
+   2. VIRTUAL HQ VEHICLE & VIP RECEPTION ANIMATIONS
+   ========================================================================== */
 
 @keyframes nexoraVehicleArrival {
   0% {
     transform: translateX(-240px);
   }
   28% {
-    /* Arrives and parks right in front of HQ entrance */
     transform: translateX(0px);
   }
   78% {
-    /* Stays parked while VIPs alight and get welcomed into HQ */
     transform: translateX(0px);
   }
   100% {
-    /* Departs smoothly to the right */
     transform: translateX(380px);
   }
 }
@@ -127,7 +137,6 @@ body {
   80%, 100% { background-color: #EBF3F9; }
 }
 
-/* Red Carpet Unroll when Vehicle Stops */
 @keyframes nexoraRedCarpet {
   0%, 27% {
     opacity: 0;
@@ -143,7 +152,6 @@ body {
   }
 }
 
-/* Executive VIP 1 Stepping Out of Vehicle & Walking into HQ Doors */
 @keyframes vipAlightWalkOne {
   0%, 30% {
     opacity: 0;
@@ -163,7 +171,6 @@ body {
   }
 }
 
-/* Executive VIP 2 Stepping Out Slightly After VIP 1 */
 @keyframes vipAlightWalkTwo {
   0%, 36% {
     opacity: 0;
@@ -183,7 +190,6 @@ body {
   }
 }
 
-/* Protocol / Concierge Officer Greeting Badge */
 @keyframes conciergeWelcomePopup {
   0%, 29% {
     opacity: 0;
@@ -226,4 +232,111 @@ body {
 
 .animate-concierge-popup {
   animation: conciergeWelcomePopup 10s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   3. HERO DIGITAL BACKBONE BACKGROUND MOTION ANIMATIONS
+   ========================================================================== */
+
+@keyframes heroPacketRight {
+  0% {
+    transform: translateX(-15vw);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(110vw);
+    opacity: 0;
+  }
+}
+
+@keyframes heroPacketLeft {
+  0% {
+    transform: translateX(110vw);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-15vw);
+    opacity: 0;
+  }
+}
+
+@keyframes heroPacketDown {
+  0% {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(95vh);
+    opacity: 0;
+  }
+}
+
+@keyframes heroNodeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+@keyframes heroCorePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.65;
+  }
+}
+
+.animate-packet-right-fast {
+  animation: heroPacketRight 11s linear infinite;
+}
+
+.animate-packet-right-slow {
+  animation: heroPacketRight 16s linear infinite 3s;
+}
+
+.animate-packet-left {
+  animation: heroPacketLeft 14s linear infinite 1.5s;
+}
+
+.animate-packet-down-left {
+  animation: heroPacketDown 12s linear infinite 0.5s;
+}
+
+.animate-packet-down-right {
+  animation: heroPacketDown 15s linear infinite 4s;
+}
+
+.animate-hero-node {
+  animation: heroNodeFloat 6s ease-in-out infinite;
+}
+
+.animate-hero-node-delayed {
+  animation: heroNodeFloat 7s ease-in-out infinite 2s;
+}
+
+.animate-hero-core {
+  animation: heroCorePulse 5s ease-in-out infinite;
 }

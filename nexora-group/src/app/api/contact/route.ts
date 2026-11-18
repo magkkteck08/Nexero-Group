@@ -2,18 +2,42 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Single central inbox for all Nexora Group inquiries
 const CENTRAL_INBOX = "magkk.muizomoyele@gmail.com";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, category, subject, message } = await req.json();
+    const body = await req.json();
+    const { name, email, category, subject, message, honeypot } = body;
 
-    const cleanCategory = category || "General Inquiry";
+    // 1. Spam Protection (Honeypot trap)
+    if (honeypot) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
+
+    // 2. Server-Side Input Validation
+    if (!email || typeof email !== "string" || !email.includes("@")) {
+      return NextResponse.json(
+        { error: "A valid email address is required." },
+        { status: 400 }
+      );
+    }
+
+    if (!message || typeof message !== "string" || message.trim().length < 5) {
+      return NextResponse.json(
+        { error: "Please provide a complete message or enquiry brief." },
+        { status: 400 }
+      );
+    }
+
+    const cleanName = (name || "Website Visitor").toString().slice(0, 120);
+    const cleanCategory = (category || "General Enquiries")
+      .toString()
+      .slice(0, 100);
     const finalSubject =
-      subject || `[Nexora Group - ${cleanCategory}] New Dispatch from ${name}`;
+      subject ||
+      `[Nexora Group - ${cleanCategory}] New Dispatch from ${cleanName}`;
 
+    // 3. Resend Email Dispatch
     const { data, error } = await resend.emails.send({
       from:
         process.env.RESEND_FROM_EMAIL ||
@@ -27,7 +51,7 @@ export async function POST(req: Request) {
             ${cleanCategory}
           </div>
           <h2 style="margin-top: 16px; font-size: 20px; font-weight: 900;">${finalSubject}</h2>
-          <p style="font-size: 14px;"><strong>Sender:</strong> ${name}</p>
+          <p style="font-size: 14px;"><strong>Sender:</strong> ${cleanName}</p>
           <p style="font-size: 14px;"><strong>Reply-To Email:</strong> ${email}</p>
           <hr style="border: 0; border-top: 2px solid #1E1B2E; margin: 16px 0;" />
           <p style="font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${message}</p>
@@ -41,9 +65,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, data });
   } catch (err) {
-    console.error("Resend dispatch error:", err);
+    console.error("Nexora API dispatch error:", err);
     return NextResponse.json(
-      { error: "Failed to dispatch inquiry" },
+      { error: "Internal server error while processing enquiry." },
       { status: 500 }
     );
   }

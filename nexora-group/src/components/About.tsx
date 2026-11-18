@@ -1,8 +1,62 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Building2, Mail, ArrowUpRight } from "lucide-react";
+import {
+  Building2,
+  Mail,
+  ArrowUpRight,
+  Target,
+  Eye,
+  Sparkles,
+  ShieldCheck,
+  Leaf,
+  Users,
+  Award,
+  Zap,
+} from "lucide-react";
 import { SITE_CONFIG } from "../config/siteConfig";
+
+const CORE_VALUES = [
+  {
+    name: "Innovation",
+    detail: "Engineering practical, forward-looking digital products.",
+    icon: Sparkles,
+    bg: "bg-[#FEF0B6]",
+  },
+  {
+    name: "Integrity",
+    detail: "Transparent governance, honest reporting, and trusted execution.",
+    icon: ShieldCheck,
+    bg: "bg-[#EBF3F9]",
+  },
+  {
+    name: "Sustainability",
+    detail: "Building resilient ventures designed for long-term commercial viability.",
+    icon: Leaf,
+    bg: "bg-[#E8F8F0]",
+  },
+  {
+    name: "Collaboration",
+    detail: "Partnering closely with founders, merchants, and institutions.",
+    icon: Users,
+    bg: "bg-white",
+  },
+  {
+    name: "Excellence",
+    detail: "High standards in software architecture, design, and operations.",
+    icon: Award,
+    bg: "bg-[#FEF0B6]",
+  },
+  {
+    name: "Impact",
+    detail: "Strengthening Africa's digital backbone and everyday commerce.",
+    icon: Zap,
+    bg: "bg-[#EBF3F9]",
+  },
+];
+
+const FOUNDER_MAIL_HREF =
+  "mailto:magkk.muizomoyele@gmail.com?subject=%5BNexora%20Group%20-%20Executive%20Leadership%5D%20Corporate%20Enquiry";
 
 export default function About() {
   const { founder } = SITE_CONFIG;
@@ -10,49 +64,79 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-20 sm:py-24 border-b-2 border-[#1E1B2E]"
+      className="py-16 sm:py-24 border-b-2 border-[#1E1B2E]"
     >
-      <div className="max-w-6xl mx-auto px-5 sm:px-6 space-y-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+        {/* Part 1: Who We Are + Mission & Vision + Executive Leadership */}
         <div className="grid lg:grid-cols-12 gap-10 items-start">
-          {/* Corporate Overview */}
+          {/* Left 7 Cols: Who We Are, Mission & Vision */}
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#1E1B2E] bg-[#F7D147] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E]">
               <Building2 className="w-4 h-4" />
               <span>About Nexora Group</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-black text-[#1E1B2E] tracking-tight leading-[1.12]">
-              Practical Problem-Solving Backed by{" "}
-              <span className="text-[#3E735E]">Strategic Execution.</span>
+            <h2 className="text-3xl sm:text-5xl font-black text-[#1E1B2E] tracking-tight leading-[1.1]">
+              More Than Technology.{" "}
+              <span className="text-[#3E735E]">Building Businesses.</span>
             </h2>
 
-            <p className="text-[#4A4857] text-base font-medium leading-relaxed">
-              Nexora Group is a multi-sector enterprise that builds, develops, operates, and invests in technology products and commercial ventures. Our software platforms are one pillar of the group—alongside interactive gaming, digital media publishing, physical product distribution, and emerging commercial opportunities.
-            </p>
-
-            <div className="nb-card p-5 sm:p-6 bg-[#FEF0B6] text-sm sm:text-base font-bold text-[#1E1B2E] italic leading-relaxed">
-              &ldquo;{founder.visionQuote}&rdquo;
+            {/* Who We Are */}
+            <div className="space-y-2">
+              <p className="text-xs font-black uppercase tracking-wider text-[#3E735E]">
+                Who We Are
+              </p>
+              <p className="text-[#4A4857] text-sm sm:text-base font-medium leading-relaxed">
+                Nexora Group is a technology and venture-building company focused on developing digital infrastructure, launching innovative products, and supporting the growth of technology-driven businesses across Africa and beyond.
+              </p>
             </div>
 
-            <div className="pt-2 flex flex-wrap gap-4">
+            {/* Mission & Vision Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="nb-card bg-[#FEF0B6] p-5 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1E1B2E]">
+                  <Target className="w-4 h-4 text-[#3E735E]" />
+                  <span>Our Mission</span>
+                </div>
+                <p className="text-xs sm:text-sm font-semibold text-[#1E1B2E] leading-relaxed">
+                  To build accessible, scalable, and impactful digital solutions that empower businesses and strengthen Africa&apos;s digital economy.
+                </p>
+              </div>
+
+              <div className="nb-card bg-[#EBF3F9] p-5 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1E1B2E]">
+                  <Eye className="w-4 h-4 text-[#3E735E]" />
+                  <span>Our Vision</span>
+                </div>
+                <p className="text-xs sm:text-sm font-semibold text-[#1E1B2E] leading-relaxed">
+                  To become a leading African technology and venture group, building sustainable businesses with global relevance.
+                </p>
+              </div>
+            </div>
+
+            <blockquote className="rounded-2xl border-2 border-[#1E1B2E] bg-white p-5 text-sm sm:text-base font-bold text-[#1E1B2E] italic leading-relaxed shadow-[0_3px_0_0_#1E1B2E]">
+              &ldquo;{founder.visionQuote}&rdquo;
+            </blockquote>
+
+            <div className="pt-1 flex flex-wrap gap-3.5">
               <Link
                 href="/company"
                 className="nb-btn-primary text-xs sm:text-sm"
               >
-                <span>View Full Corporate Profile</span>
+                <span>Full Corporate Profile</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/investors"
+                href="/#partnerships"
                 className="nb-btn-secondary text-xs sm:text-sm"
               >
-                <span>Investor &amp; Partnership Overview</span>
+                <span>Partnerships &amp; Investment</span>
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
 
-          {/* Founder & Group Executive Profile */}
+          {/* Right 5 Cols: Founder & Group Executive Profile */}
           <div className="lg:col-span-5 nb-card bg-white p-6 sm:p-8 space-y-6">
             <div className="flex items-center gap-4">
               <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-[#1E1B2E] bg-[#F7D147] shadow-[0_3px_0_0_#1E1B2E] shrink-0">
@@ -84,7 +168,7 @@ export default function About() {
             {/* Division Responsibilities */}
             <div className="space-y-3 pt-3 border-t-2 border-[#1E1B2E]">
               <p className="text-xs font-black uppercase tracking-wider text-[#1E1B2E]">
-                Group Responsibilities
+                Group Leadership Scope
               </p>
               <div className="space-y-2.5">
                 {founder.responsibilities.map((item) => (
@@ -103,7 +187,7 @@ export default function About() {
               </div>
             </div>
 
-            {/* Executive Links */}
+            {/* Executive Action Buttons (Zero Raw Email Exposed) */}
             <div className="pt-4 border-t-2 border-[#1E1B2E] flex flex-wrap items-center justify-between gap-3">
               <a
                 href={founder.linkedin}
@@ -111,25 +195,59 @@ export default function About() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-extrabold px-4 py-2 rounded-full bg-[#F7D147] text-[#1E1B2E] border-2 border-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:translate-y-[1px] transition-all"
               >
-                <svg
-                  className="w-3.5 h-3.5 text-[#1E1B2E] fill-current"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-                </svg>
                 <span>LinkedIn Profile</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
 
               <a
-                href={`mailto:${founder.email}`}
-                className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1E1B2E] hover:underline"
+                href={FOUNDER_MAIL_HREF}
+                className="inline-flex items-center gap-1.5 text-xs font-extrabold px-4 py-2 rounded-full bg-white text-[#1E1B2E] border-2 border-[#1E1B2E] shadow-[0_2px_0_0_#1E1B2E] hover:bg-[#FEF0B6] transition-all"
               >
                 <Mail className="w-3.5 h-3.5 text-[#3E735E]" />
-                <span>{founder.email}</span>
+                <span>Email Executive Office</span>
               </a>
             </div>
+          </div>
+        </div>
+
+        {/* Part 2: Section 08 — Our 6 Core Values */}
+        <div className="space-y-5 pt-4 border-t-2 border-[#1E1B2E]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-widest text-[#3E735E]">
+                Corporate DNA
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-[#1E1B2E] mt-0.5">
+                Our Core Values
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm font-medium text-[#5A5868]">
+              The principles guiding how we engineer products, operate ventures, and partner with organisations.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {CORE_VALUES.map((val) => {
+              const Icon = val.icon;
+              return (
+                <div
+                  key={val.name}
+                  className={`nb-card ${val.bg} p-5 flex items-start gap-3.5`}
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 border-[#1E1B2E] bg-white shadow-[0_2px_0_0_#1E1B2E]">
+                    <Icon className="h-5 w-5 text-[#1E1B2E]" />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-[#1E1B2E]">
+                      {val.name}
+                    </h4>
+                    <p className="mt-1 text-xs font-medium text-[#4A4857] leading-relaxed">
+                      {val.detail}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
